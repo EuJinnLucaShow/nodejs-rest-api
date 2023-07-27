@@ -3,7 +3,7 @@ const Joi = require('joi');
 
 const router = express.Router()
 const { v4: uuidv4 } = require('uuid');
-const fs = require('fs');
+const fs = require('fs/promises');
 const path = require('path');
 
 const contactsPath = path.join(__dirname, '../../models/contacts.json');
