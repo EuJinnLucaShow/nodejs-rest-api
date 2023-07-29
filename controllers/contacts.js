@@ -17,6 +17,9 @@ const getContactById = async (req, res) => {
 };
 
 const addContact = async (req, res) => {
+  if (!req.body.name || !req.body.email || !req.body.phone) {
+    throw HttpError(400, 'missing required name field');
+  }
   const result = await contacts.addContact(req.body);
   res.status(201).json(result);
 };
