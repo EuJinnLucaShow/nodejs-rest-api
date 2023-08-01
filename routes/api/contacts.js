@@ -23,4 +23,11 @@ router.put(
 
 router.delete('/:id', ctrl.removeContact);
 
+router.patch(
+  '/:id/favorite',
+  checkBody,
+  validateBody(schemas.addSchema),
+  ctrl.updateStatusContact
+);
+
 module.exports = router;

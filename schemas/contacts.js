@@ -30,6 +30,7 @@ const addSchema = Joi.object({
       'string.pattern.base': `Phone number must be in format: 000-000-0000`,
       'any.required': `Missing required phone field`,
     }),
+  favorite: Joi.boolean().optional(),
 });
 
 module.exports = {
