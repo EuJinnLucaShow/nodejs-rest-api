@@ -3,14 +3,10 @@ const Joi = require('joi');
 
 const { handleMongooseError } = require('../helpers');
 
-const emailRegexp = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegexp = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
 
 const userSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: [true, 'Set name for contact'],
-    },
     email: {
       type: String,
       match: emailRegexp,
@@ -35,7 +31,6 @@ const userSchema = new Schema(
 userSchema.post('save', handleMongooseError);
 
 const registerSchema = Joi.object({
-  name: Joi.string().min(3).max(30).required(),
   email: Joi.string().pattern(new RegExp(emailRegexp)).required(),
   password: Joi.string().min(6).required(),
 });
