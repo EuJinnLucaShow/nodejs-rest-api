@@ -22,6 +22,11 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -50,13 +55,10 @@ const addSchema = Joi.object({
       'string.email': `Invalid email format`,
       'any.required': `Missing required email field`,
     }),
-  phone: Joi.string()
-    .pattern(new RegExp(regexPhone))
-    .required()
-    .messages({
-      'string.pattern.base': `Phone number must be in format: 000-000-0000`,
-      'any.required': `Missing required phone field`,
-    }),
+  phone: Joi.string().pattern(new RegExp(regexPhone)).required().messages({
+    'string.pattern.base': `Phone number must be in format: 000-000-0000`,
+    'any.required': `Missing required phone field`,
+  }),
   favorite: Joi.boolean().optional(),
 });
 
