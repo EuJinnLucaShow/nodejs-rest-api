@@ -31,8 +31,14 @@ const userSchema = new Schema(
 userSchema.post('save', handleMongooseError);
 
 const registerSchema = Joi.object({
-  email: Joi.string().pattern(new RegExp(emailRegexp)).required(),
-  password: Joi.string().min(6).required(),
+  email: Joi.string().pattern(new RegExp(emailRegexp)).required().messages({
+    'string.email': `Invalid email format`,
+    'any.required': `Missing required email field`,
+  }),
+  password: Joi.string().min(6).required().messages({
+    'string.password': `Invalid password format`,
+    'any.required': `Missing required password field`,
+  }),
 });
 
 const loginSchema = Joi.object({
