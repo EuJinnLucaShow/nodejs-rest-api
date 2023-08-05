@@ -46,9 +46,24 @@ const login = async (req, res) => {
   });
 };
 
-const logout = async (req, res) => {};
+const current = async (req, res) => {
+  const { email, subscription } = req.user;
+  res.status(200).json({
+    email,
+    subscription,
+  });
+};
 
-const current = async (req, res) => {};
+const logout = async (req, res) => {
+  const { id } = req.user;
+  const result = await User.findByIdAndUpdate(id, { token: null });
+  if (!result) {
+    throw HttpError(404, 'Not found');
+  }
+  res.json({
+    message: 'Logout success',
+  });
+};
 
 module.exports = {
   register: ctrlWrapper(register),
