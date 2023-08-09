@@ -56,6 +56,13 @@ const registerSchema = Joi.object({
   }),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(new RegExp(emailRegexp)).required().messages({
+    'string.pattern.base': `Invalid email format`,
+    'any.required': `Missing required email field`,
+  }),
+});
+
 const loginSchema = Joi.object({
   email: Joi.string().pattern(new RegExp(emailRegexp)).required().messages({
     'string.pattern.base': `Invalid email format`,
@@ -67,7 +74,7 @@ const loginSchema = Joi.object({
   }),
 });
 
-const schemas = { registerSchema, loginSchema };
+const schemas = { registerSchema, emailSchema, loginSchema };
 
 const User = model('user', userSchema);
 
